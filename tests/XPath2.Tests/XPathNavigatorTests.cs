@@ -209,6 +209,66 @@ namespace XPath2.Tests
         }
 
         [Fact]
+        public void PositionalPredicateTest1()
+        {
+            var todoList = GetTodoListDoc();
+
+            var firstItem = todoList.XPath2SelectSingleNode("/*/todo-item[1]");
+
+            Assert.NotNull(firstItem);
+        }
+
+        [Fact]
+        public void PositionalPredicateTestUsingPositionFunction1()
+        {
+            var todoList = GetTodoListDoc();
+
+            var firstItem = todoList.XPath2SelectSingleNode("/*/todo-item[position() = 1]");
+
+            Assert.NotNull(firstItem);
+        }
+
+        [Fact]
+        public void PositionalPredicateTest2()
+        {
+            var todoList = GetTodoListDoc();
+
+            var firstItem = todoList.XPath2SelectSingleNode("/*/todo-item[2]");
+
+            Assert.NotNull(firstItem);
+        }
+
+        [Fact]
+        public void PositionalPredicateUsingPositionFunctionTest2()
+        {
+            var todoList = GetTodoListDoc();
+
+            var firstItem = todoList.XPath2SelectSingleNode("/*/todo-item[position() = 2]");
+
+            Assert.NotNull(firstItem);
+        }
+
+        [Fact]
+        public void PositionalPredicateUsingLastFunctionTest1()
+        {
+            var todoList = GetTodoListDoc();
+
+            var firstItem = todoList.XPath2SelectSingleNode("/*/todo-item[last()]");
+
+            Assert.NotNull(firstItem);
+        }
+
+        [Fact]
+        public void PositionalPredicateUsingLastFunctionTest2()
+        {
+            var todoList = GetTodoListDoc();
+
+            var firstItem = todoList.XPath2SelectSingleNode("/*/todo-item[last() = 3]");
+
+            Assert.NotNull(firstItem);
+        }
+
+        [Fact]
         public void BindingEmptyPrefixShouldNotBreakFunctionLookup()
         {
             var todoList = GetTodoListDoc();
