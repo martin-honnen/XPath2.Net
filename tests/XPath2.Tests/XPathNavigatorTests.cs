@@ -229,6 +229,16 @@ namespace XPath2.Tests
         }
 
         [Fact]
+        public void PositionalPredicateTestUsingFnPositionFunction1()
+        {
+            var todoList = GetTodoListDoc();
+
+            var firstItem = todoList.XPath2SelectSingleNode("/*/todo-item[fn:position() = 1]");
+
+            Assert.NotNull(firstItem);
+        }
+
+        [Fact]
         public void PositionalPredicateTest2()
         {
             var todoList = GetTodoListDoc();
@@ -244,6 +254,16 @@ namespace XPath2.Tests
             var todoList = GetTodoListDoc();
 
             var firstItem = todoList.XPath2SelectSingleNode("/*/todo-item[position() = 2]");
+
+            Assert.NotNull(firstItem);
+        }
+
+        [Fact]
+        public void PositionalPredicateUsingPositionFnFunctionTest2()
+        {
+            var todoList = GetTodoListDoc();
+
+            var firstItem = todoList.XPath2SelectSingleNode("/*/todo-item[fn:position() = 2]");
 
             Assert.NotNull(firstItem);
         }
