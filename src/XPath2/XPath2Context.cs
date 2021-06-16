@@ -21,11 +21,15 @@ namespace Wmhelp.XPath2
 
         public XmlSchemaSet SchemaSet { get; set; }
 
+        public string DefaultFunctionNamespace { get; }
+
         public XPath2Context(IXmlNamespaceResolver nsManager)
         {
             NameTable = new NameTable();
             NamespaceManager = new XmlNamespaceManager(NameTable);
             SchemaSet = new XmlSchemaSet(NameTable);
+
+            DefaultFunctionNamespace = XmlReservedNs.NsXPathFunc;
 
             if (nsManager != null)
             {

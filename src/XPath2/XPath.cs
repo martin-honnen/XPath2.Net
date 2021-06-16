@@ -1105,8 +1105,8 @@ case 125:
 case 127:
 #line 775 "Xpath.y"
   {
-      XmlQualifiedName identity = QNameParser.Parse((string)yyVals[-2+yyTop], context.NamespaceManager, 
-         context.NamespaceManager.DefaultNamespace, context.NameTable);
+      XmlQualifiedName identity = QNameParser.ParseFunction((string)yyVals[-2+yyTop], context.NamespaceManager, 
+         context.DefaultFunctionNamespace, context.NameTable);
       string ns = identity.Namespace;
       if (identity.Namespace == String.Empty)            
           ns = XmlReservedNs.NsXQueryFunc;
@@ -1116,8 +1116,8 @@ case 127:
 case 128:
 #line 784 "Xpath.y"
   {
-      XmlQualifiedName identity = QNameParser.Parse((string)yyVals[-3+yyTop], context.NamespaceManager, 
-         context.NamespaceManager.DefaultNamespace, context.NameTable);
+      XmlQualifiedName identity = QNameParser.ParseFunction((string)yyVals[-3+yyTop], context.NamespaceManager, 
+         context.DefaultFunctionNamespace, context.NameTable);
       string ns = identity.Namespace;
       if (identity.Namespace == String.Empty)            
           ns = XmlReservedNs.NsXQueryFunc;

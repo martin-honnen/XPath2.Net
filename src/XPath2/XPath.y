@@ -773,8 +773,8 @@ ContextItemExpr
 FunctionCall
    : QName '(' ')'
    {
-      XmlQualifiedName identity = QNameParser.Parse((string)$1, context.NamespaceManager, 
-         context.NamespaceManager.DefaultNamespace, context.NameTable);
+      XmlQualifiedName identity = QNameParser.ParseFunction((string)$1, context.NamespaceManager, 
+         context.DefaultFunctionNamespace, context.NameTable);
       string ns = identity.Namespace;
       if (identity.Namespace == String.Empty)            
           ns = XmlReservedNs.NsXQueryFunc;
@@ -782,8 +782,8 @@ FunctionCall
    }
    | QName '(' Args ')'
    {
-      XmlQualifiedName identity = QNameParser.Parse((string)$1, context.NamespaceManager, 
-         context.NamespaceManager.DefaultNamespace, context.NameTable);
+      XmlQualifiedName identity = QNameParser.ParseFunction((string)$1, context.NamespaceManager, 
+         context.DefaultFunctionNamespace, context.NameTable);
       string ns = identity.Namespace;
       if (identity.Namespace == String.Empty)            
           ns = XmlReservedNs.NsXQueryFunc;
