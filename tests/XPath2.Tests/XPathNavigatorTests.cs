@@ -190,7 +190,7 @@ namespace XPath2.Tests
         public void XPath2SelectNodesWithDefaultNamespace()
         {
             var namespaceManager = new XmlNamespaceManager(new NameTable());
-            namespaceManager.AddNamespace("", "http://www.w3.org/1999/xhtml");
+            namespaceManager.AddNamespace(string.Empty, "http://www.w3.org/1999/xhtml");
 
             var nodeList = GetXHTMLSampleDoc().XPath2SelectNodes("//p", namespaceManager);
 
@@ -206,6 +206,19 @@ namespace XPath2.Tests
             var nodeList = GetXHTMLSampleDoc().XPath2SelectNodes("//xhtml:p", namespaceManager);
 
             Assert.Equal(2, nodeList.Count);
+        }
+
+        [Fact]
+        public void BindingEmptyPrefixShouldNotBreakFunctionLookup()
+        {
+            var todoList = GetTodoListDoc();
+
+            var namespaceManager = new XmlNamespaceManager(new NameTable());
+            namespaceManager.AddNamespace(string.Empty, "http://example.com/ns1");
+
+            var result = todoList.XPath2Evaluate("count(//todo-item)", namespaceManager);
+
+            Assert.Equal(3, result);
         }
 
         // https://www.w3.org/TR/xpath-functions/#func-round
