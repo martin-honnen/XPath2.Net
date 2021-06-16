@@ -198,6 +198,17 @@ namespace XPath2.Tests
         }
 
         [Fact]
+        public void XPath2SelectNodesWithDefaultNamespaceElementTest()
+        {
+            var namespaceManager = new XmlNamespaceManager(new NameTable());
+            namespaceManager.AddNamespace(string.Empty, "http://www.w3.org/1999/xhtml");
+
+            var nodeList = GetXHTMLSampleDoc().XPath2SelectNodes("//element(p)", namespaceManager);
+
+            Assert.Equal(2, nodeList.Count);
+        }
+
+        [Fact]
         public void XPath2SelectNodesWithPrefixForNamespace()
         {
             var namespaceManager = new XmlNamespaceManager(new NameTable());
@@ -208,6 +219,16 @@ namespace XPath2.Tests
             Assert.Equal(2, nodeList.Count);
         }
 
+        [Fact]
+        public void XPath2SelectNodesWithPrefixForNamespaceElementTest()
+        {
+            var namespaceManager = new XmlNamespaceManager(new NameTable());
+            namespaceManager.AddNamespace("xhtml", "http://www.w3.org/1999/xhtml");
+
+            var nodeList = GetXHTMLSampleDoc().XPath2SelectNodes("//element(xhtml:p)", namespaceManager);
+
+            Assert.Equal(2, nodeList.Count);
+        }
         [Fact]
         public void PositionalPredicateTest1()
         {
@@ -296,7 +317,7 @@ namespace XPath2.Tests
             var namespaceManager = new XmlNamespaceManager(new NameTable());
             namespaceManager.AddNamespace(string.Empty, "http://example.com/ns1");
 
-            var result = todoList.XPath2Evaluate("count(//todo-item)", namespaceManager);
+            var result = todoList.XPath2Evaluate("count(/*/*)", namespaceManager);
 
             Assert.Equal(3, result);
         }

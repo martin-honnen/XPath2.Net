@@ -29,7 +29,7 @@ namespace Wmhelp.XPath2
             NamespaceManager = new XmlNamespaceManager(NameTable);
             SchemaSet = new XmlSchemaSet(NameTable);
 
-            DefaultFunctionNamespace = XmlReservedNs.NsXPathFunc;
+            DefaultFunctionNamespace = XmlReservedNs.NsXQueryFunc;// XmlReservedNs.NsXPathFunc;
 
             if (nsManager != null)
             {

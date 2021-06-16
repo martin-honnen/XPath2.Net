@@ -1018,7 +1018,7 @@ case 103:
 #line 668 "Xpath.y"
   {
       XmlQualifiedName qualifiedName = QNameParser.Parse((String)yyVals[0+yyTop], 
-        context.NamespaceManager, "", context.NameTable);
+        context.NamespaceManager, context.NamespaceManager.DefaultNamespace, context.NameTable);
       yyVal = XmlQualifiedNameTest.New(qualifiedName.Name, qualifiedName.Namespace);
    }
   break;
