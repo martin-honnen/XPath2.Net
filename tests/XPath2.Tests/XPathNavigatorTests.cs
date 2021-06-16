@@ -29,6 +29,23 @@ namespace XPath2.Tests
             };
         }
 
+        private XmlDocument GetXHTMLSampleDoc()
+        {
+            var xhtml = @"<html xmlns='http://www.w3.org/1999/xhtml' lang='en' xml:lang='en'>
+<head>
+  <title>Example</title>
+</head>
+<body>
+  <h1>Example</h1>
+  <p>This is paragraph 1.</p>
+  <p>This is paragraph 2.</p>
+</body>
+</html>";
+            var doc = new XmlDocument();
+            doc.LoadXml(xhtml);
+            return doc;
+        }
+
         //public void O()
         //{
         //    string q = @"
@@ -167,6 +184,28 @@ namespace XPath2.Tests
 
             Assert.Equal((decimal)1715.55, add2);
             Assert.Equal(true, equal2);
+        }
+
+        [Fact]
+        public void XPath2SelectNodesWithDefaultNamespace()
+        {
+            var namespaceManager = new XmlNamespaceManager(new NameTable());
+            namespaceManager.AddNamespace("", "http://www.w3.org/1999/xhtml");
+
+            var nodeList = GetXHTMLSampleDoc().XPath2SelectNodes("//p", namespaceManager);
+
+            Assert.Equal(2, nodeList.Count);
+        }
+
+        [Fact]
+        public void XPath2SelectNodesWithPrefixForNamespace()
+        {
+            var namespaceManager = new XmlNamespaceManager(new NameTable());
+            namespaceManager.AddNamespace("xhtml", "http://www.w3.org/1999/xhtml");
+
+            var nodeList = GetXHTMLSampleDoc().XPath2SelectNodes("//xhtml:p", namespaceManager);
+
+            Assert.Equal(2, nodeList.Count);
         }
 
         // https://www.w3.org/TR/xpath-functions/#func-round
