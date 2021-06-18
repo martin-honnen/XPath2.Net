@@ -45,6 +45,33 @@ namespace Wmhelp.XPath2
             }
         }
 
+        public static XmlQualifiedName ParseFunction(string name, IXmlNamespaceResolver resolver, string defaultNamespace, XmlNameTable nameTable)
+        {
+            string prefix;
+            string localName;
+            Split(name, out prefix, out localName);
+            if (nameTable != null)
+            {
+                if (prefix != null)
+                    prefix = nameTable.Add(prefix);
+                if (localName != null)
+                    localName = nameTable.Add(localName);
+            }
+            if (!String.IsNullOrEmpty(prefix))
+            {
+                string ns = resolver.LookupNamespace(prefix);
+                if (ns == null)
+                    throw new XPath2Exception("XPST0081", Resources.XPST0081, prefix);
+                return new XmlQualifiedName(localName, ns);
+            }
+            else
+            {
+                if (defaultNamespace == null)
+                    defaultNamespace = String.Empty;
+                return new XmlQualifiedName(localName, defaultNamespace);
+            }
+        }
+
         public static int ParseNCName(string s, int offset)
         {
             int num = offset;
