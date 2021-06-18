@@ -6,7 +6,7 @@
     <Copyright>Stef Heyenrath</Copyright>
     <AssemblyTitle>Non-official extensions for XPath2.dll</AssemblyTitle>
     <Authors>Stef Heyenrath</Authors>
-    <TargetFrameworks>net35;net40;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net35;net40;net452;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>XPath2.Extensions</AssemblyName>
     <PackageId>XPath2.Extensions</PackageId>
     <PackageTags>XPath;XPath2;XPath2.0;Xml;W3C;XQuery;XQTS;Extensions</PackageTags>
@@ -26,6 +26,10 @@
     <SignAssembly>true</SignAssembly>
     <ProjectGuid>{D3804228-91F4-4502-9595-39584EBB0000}</ProjectGuid>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(buildType)' == 'azure-pipelines-ci' ">
+    <TargetFrameworks>net40;net452;netstandard2.0;netstandard2.1</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -61,6 +65,12 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />

@@ -6,7 +6,7 @@
     <Copyright>Semyon A. Chertkov and Stef Heyenrath</Copyright>
     <AssemblyTitle>Lightweight XPath2 implementation for .NET</AssemblyTitle>
     <Authors>Semyon A. Chertkov and Stef Heyenrath</Authors>
-    <TargetFrameworks>net35;net40;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net35;net40;net452;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>XPath2</AssemblyName>
     <PackageId>XPath2</PackageId>
     <PackageTags>XPath;XPath2;XPath2.0;Xml;W3C;XQuery;XQTS</PackageTags>
@@ -29,6 +29,10 @@
     <SignAssembly>true</SignAssembly>
     <ProjectGuid>{D3804228-91F4-4502-9595-39584EAA0000}</ProjectGuid>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(buildType)' == 'azure-pipelines-ci' ">
+    <TargetFrameworks>net40;net452;netstandard2.0;netstandard2.1</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -60,6 +64,13 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />

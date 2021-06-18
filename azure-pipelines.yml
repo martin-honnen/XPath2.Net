@@ -13,6 +13,14 @@ steps:
     echo "BuildId = $(buildId)"
   displayName: 'Print buildId'
 
+- task: PowerShell@2
+  displayName: "Use JDK11 by default"
+  inputs:
+    targetType: 'inline'
+    script: |
+      $jdkPath = $env:JAVA_HOME_11_X64
+      Write-Host "##vso[task.setvariable variable=JAVA_HOME]$jdkPath"
+
 # Install SonarScanner
 - script: |
     dotnet tool install --global dotnet-sonarscanner
@@ -29,12 +37,18 @@ steps:
   displayName: Begin SonarScanner
 
 - task: DotNetCoreCLI@2
-  displayName: Build Projects in Debug configuration
+  displayName: Build Debug [net452]
   inputs:
     command: 'build'
-    arguments: /p:Configuration=Debug # https://github.com/MicrosoftDocs/vsts-docs/issues/1976
+    arguments: /p:Configuration=Debug --framework net452
     projects: $(buildProjects)
 
+- task: DotNetCoreCLI@2
+  displayName: Build Debug [netstandard2.0]
+  inputs:
+    command: 'build'
+    arguments: /p:Configuration=Debug --framework netstandard2.0
+    projects: $(buildProjects)
 
 # Build tests and run tests for net452 and netcoreapp2.1 (with coverage)
 - script: |
@@ -57,7 +71,7 @@ steps:
   displayName: Build Projects in Release configuration
   inputs:
     command: 'build'
-    arguments: /p:Configuration=Release # https://github.com/MicrosoftDocs/vsts-docs/issues/1976
+    arguments: /p:Configuration=Release
     projects: $(buildProjects)
 
 - task: DotNetCoreCLI@2
