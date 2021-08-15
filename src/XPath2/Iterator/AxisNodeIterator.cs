@@ -70,6 +70,8 @@ namespace Wmhelp.XPath2.Iterator
                     case XPathNodeType.Attribute:
                         return (nameTest.IsNamespaceWildcard || nameTest.Namespace == curr.NamespaceURI) &&
                                (nameTest.IsNameWildcard || nameTest.Name == curr.LocalName);
+                    default:
+                        return false;
                 }
             }
             else if (typeTest != null)
