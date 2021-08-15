@@ -231,6 +231,16 @@ namespace XPath2.Tests
         }
 
         [Fact]
+        public void BindingEmptyPrefixShouldNotBreakAttributeSelection()
+        {
+            var namespaceManager = new XmlNamespaceManager(new NameTable());
+            namespaceManager.AddNamespace("", "http://www.w3.org/1999/xhtml");
+
+            var nodeList = GetXHTMLSampleDoc().XPath2SelectNodes("//@lang", namespaceManager);
+
+            Assert.Equal(1, nodeList.Count);
+        }
+        [Fact]
         public void BindingEmptyPrefixShouldNotBreakFunctionLookup()
         {
             var todoList = GetTodoListDoc();
