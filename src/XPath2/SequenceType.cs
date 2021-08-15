@@ -236,8 +236,15 @@ namespace Wmhelp.XPath2
 
         private bool MatchName(XPathNavigator nav, XPath2Context context)
         {
-            return (NameTest.IsNamespaceWildcard || NameTest.Namespace == nav.NamespaceURI) &&
-                   (NameTest.IsNameWildcard || NameTest.Name == nav.LocalName);
+            if (nav.NodeType == XPathNodeType.Element && NameTest.Namespace == string.Empty)
+            {
+                return context.NamespaceManager.DefaultNamespace == nav.NamespaceURI && NameTest.Name == nav.LocalName;
+            }
+            else
+            {
+                return (NameTest.IsNamespaceWildcard || NameTest.Namespace == nav.NamespaceURI) &&
+                       (NameTest.IsNameWildcard || NameTest.Name == nav.LocalName);
+            }
         }
 
         public XPathNodeType GetNodeKind()

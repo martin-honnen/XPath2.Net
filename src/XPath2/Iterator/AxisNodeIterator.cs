@@ -55,9 +55,22 @@ namespace Wmhelp.XPath2.Iterator
         {
             if (nameTest != null)
             {
-                return (curr.NodeType == XPathNodeType.Element || curr.NodeType == XPathNodeType.Attribute) &&
-                       (nameTest.IsNamespaceWildcard || nameTest.Namespace == curr.NamespaceURI) &&
-                       (nameTest.IsNameWildcard || nameTest.Name == curr.LocalName);
+                switch (curr.NodeType)
+                {
+                    case XPathNodeType.Element:
+                        if (nameTest.Namespace == string.Empty)
+                        {
+                            return curr.NamespaceURI == context.NamespaceManager.DefaultNamespace && curr.LocalName == nameTest.Name;
+                        }
+                        else
+                        {
+                            return (nameTest.IsNamespaceWildcard || nameTest.Namespace == curr.NamespaceURI) &&
+                                   (nameTest.IsNameWildcard || nameTest.Name == curr.LocalName);
+                        }
+                    case XPathNodeType.Attribute:
+                        return (nameTest.IsNamespaceWildcard || nameTest.Namespace == curr.NamespaceURI) &&
+                               (nameTest.IsNameWildcard || nameTest.Name == curr.LocalName);
+                }
             }
             else if (typeTest != null)
                 return typeTest.Match(curr, context);

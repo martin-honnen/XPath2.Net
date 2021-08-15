@@ -667,7 +667,7 @@ NameTest
    : QName
    {
       XmlQualifiedName qualifiedName = QNameParser.Parse((String)$1, 
-        context.NamespaceManager, context.NamespaceManager.DefaultNamespace, context.NameTable);
+        context.NamespaceManager, context.NameTable);
       $$ = XmlQualifiedNameTest.New(qualifiedName.Name, qualifiedName.Namespace);
    }
    | Wildcard
