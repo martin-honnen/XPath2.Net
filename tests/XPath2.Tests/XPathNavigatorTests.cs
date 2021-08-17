@@ -332,5 +332,27 @@ namespace XPath2.Tests
             // Assert
             result.Should().Be(expected);
         }
+
+        [Fact]
+        public void XPath2Evaluate_AttributeSelection()
+        {
+            var nav = GetTodoListDoc().CreateNavigator();
+            var result1 = nav.XPath2Evaluate("count(//@id)");
+            var result2 = nav.XPath2Evaluate("count(//attribute::attribute(id))");
+
+            result1.Should().Be(3);
+            result2.Should().Be(3);
+        }
+
+        [Fact]
+        public void XPath2Evaluate_FullPathWithAttributeSelection()
+        {
+            var nav = GetTodoListDoc().CreateNavigator();
+            var result1 = nav.XPath2Evaluate("count(/todo-list/todo-item/@id)");
+            var result2 = nav.XPath2Evaluate("count(/todo-list/todo-item/attribute::attribute(id))");
+
+            result1.Should().Be(3);
+            result2.Should().Be(3);
+        }
     }
 }
