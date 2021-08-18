@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Xml;
 using System.Xml.XPath;
 using Wmhelp.XPath2;
